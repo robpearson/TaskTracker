@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -13,10 +14,18 @@ namespace TaskTracker.Controllers.Repositories
         private const string SqlStringFindTaskById = "Select * FROM Tasks WHERE Id = @Id ";
 
         private readonly string connectionString;
+        private readonly IResourceRepository<Project> projectRepository;
+        private readonly IResourceRepository<Tag> tagRepository;
 
-        public TasksRepository(string connectionString)
+        public TasksRepository(IResourceRepository<Project> projectRepository, IResourceRepository<Tag> tagRepository) : this(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString, projectRepository, tagRepository)
+        {
+        }
+
+        public TasksRepository(string connectionString, IResourceRepository<Project> projectRepository, IResourceRepository<Tag> tagRepository)
         {
             this.connectionString = connectionString;
+            this.projectRepository = projectRepository;
+            this.tagRepository = tagRepository;
         }
 
         public Task Find(int id)

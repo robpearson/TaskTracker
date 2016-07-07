@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -15,6 +16,10 @@ namespace TaskTracker.Controllers.Repositories
         private const string SqlStringInsertProject = "INSERT INTO [dbo].[Projects]([Name],[Description])VALUES(@Name,@Description); select CAST(SCOPE_IDENTITY() as int)";
 
         private readonly string connectionString;
+
+        public ProjectsRepository() : this(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString)
+        {
+        }
 
         public ProjectsRepository(string connectionString)
         {

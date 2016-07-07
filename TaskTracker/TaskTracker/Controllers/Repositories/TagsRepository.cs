@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -14,6 +15,10 @@ namespace TaskTracker.Controllers.Repositories
         private const string SqlStringInsertTag = "INSERT INTO [dbo].[Tags]([Name])VALUES(@Name); select CAST(SCOPE_IDENTITY() as int)";
 
         private readonly string connectionString;
+
+        public TagsRepository() : this(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString)
+        {
+        }
 
         public TagsRepository(string connectionString)
         {

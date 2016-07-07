@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Http;
 using TaskTracker.Controllers.Repositories;
 using TaskTracker.Models;
@@ -8,19 +7,18 @@ namespace TaskTracker.Controllers
 {
     public class TagsController : ApiController
     {
-        private readonly TagsRepository _repository =
-            new TagsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
+        private readonly TagsRepository repository = new TagsRepository();
 
         // GET: api/Tags
         public List<Tag> Get()
         {
-            return _repository.GetAll();
+            return repository.GetAll();
         }
 
         // GET: api/Tags/5
         public Tag Get(int id)
         {
-            return _repository.Find(id);
+            return repository.Find(id);
         }
 
         // POST: api/Tags

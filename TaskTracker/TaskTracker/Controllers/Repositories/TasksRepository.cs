@@ -12,6 +12,7 @@ namespace TaskTracker.Controllers.Repositories
     {
         private const string SqlStringFindTasks = "Select * FROM Tasks";
         private const string SqlStringFindTaskById = "Select * FROM Tasks WHERE Id = @Id ";
+        private const string SqlStringInsertTaskFindTaskById = "Select * FROM Tasks WHERE Id = @Id ";
 
         private readonly string connectionString;
         private readonly IResourceRepository<Project> projectRepository;
@@ -44,16 +45,38 @@ namespace TaskTracker.Controllers.Repositories
             }
         }
 
-        public Task Add(Task resource)
+        public Task Save(Task resource)
         {
-            // TODO: Implement
-            throw new NotImplementedException();
-        }
+            using (var db = new SqlConnection(connectionString))
+            {
+                // Ensure project is saved.
+                resource.Project = projectRepository.Save(resource.Project);
 
-        public Task Update(Task resource)
-        {
-            // TODO: Implement
-            throw new NotImplementedException();
+                // Ensure tags are saved
+                var persistedTags = new List<Tag>();
+                foreach (var tag in resource.Tags)
+                {
+                    persistedTags.Add(tagRepository.Save(tag));
+                }
+
+                // Save Task
+                if (resource.Id == 0)
+                {
+                    // Save it for the first time.  
+                    // i.e. do an insert via dapper. Use Raw SQL.
+                    dbTask.Tags = persistedTags.Select(x => x.Id);
+                }
+                else
+                {
+                    // Save changes
+                    // i.e. do an update via dapper. Use Raw SQL.
+                }
+
+
+                // Add Task Tag Relationships
+
+                return new Task();
+            }
         }
 
         public void Remove(Task resource)

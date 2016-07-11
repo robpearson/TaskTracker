@@ -42,7 +42,7 @@ namespace TaskTracker.Controllers.Repositories
             }
         }
 
-        public Project Add(Project resource)
+        public Project Save(Project resource)
         {
             using (var db = new SqlConnection(connectionString))
             {
@@ -51,12 +51,6 @@ namespace TaskTracker.Controllers.Repositories
                 resource.Id = id;
                 return resource;
             }
-        }
-
-        public Project Update(Project resource)
-        {
-            // TODO: Implement
-            throw new NotImplementedException();
         }
 
         public void Remove(Project resource)

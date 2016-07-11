@@ -42,20 +42,14 @@ namespace TaskTracker.Controllers.Repositories
             }
         }
 
-        public Tag Add(Tag resource)
+        public Tag Save(Tag resource)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var id = db.Query<int>(SqlStringInsertTag, resource).Single();
                 resource.Id = id;
+                return resource;
             }
-            return resource;
-        }
-
-        public Tag Update(Tag resource)
-        {
-            // TODO: Implement
-            throw new NotImplementedException();
         }
 
         public void Remove(Tag resource)

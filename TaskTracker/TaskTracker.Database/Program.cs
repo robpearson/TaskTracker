@@ -19,18 +19,9 @@ namespace TaskTracker.Database
             - Run all the regular Release scripts
             - Run developments scripts such as adding test data
             */
-            using (SqlConnection connection = new SqlConnection(
-                       connectionString))
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("DEBUG - Dropping all tables");
-                Console.ResetColor();
-
-                //Dropping all tables
-                SqlCommand command = new SqlCommand("EXEC sp_MSforeachtable @command1 = 'DROP TABLE ?'", connection);
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-            }
+    
+            // Removed drop tables b/c foreign keys cause problems.
+            // TODO: Write simple app bootstrapper to drop/create database.
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("DEBUG - Running Release + Dev scripts");

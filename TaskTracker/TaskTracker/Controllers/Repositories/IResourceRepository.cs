@@ -6,8 +6,7 @@ namespace TaskTracker.Controllers.Repositories
     {
         T Find(int id);
         List<T> GetAll();
-        T Add(T resource);
-        T Update(T resource);
+        T Save(T resource);
         void Remove(T resource);
     }
 }

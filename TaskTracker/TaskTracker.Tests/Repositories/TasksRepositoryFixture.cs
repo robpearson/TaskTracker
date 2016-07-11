@@ -32,5 +32,11 @@ namespace TaskTracker.Tests.Repositories
 
             Assert.That(repository.Find(task.Id).Name, Is.EqualTo(task.Name));
         }
+
+        [Test]
+        public void Can_Add_New_Task_With_ProjectAndTasks()
+        {
+            
+        }
     }
 }

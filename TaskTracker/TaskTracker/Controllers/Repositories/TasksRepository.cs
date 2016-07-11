@@ -72,7 +72,6 @@ namespace TaskTracker.Controllers.Repositories
                     // i.e. do an update via dapper. Use Raw SQL.
                 }
 
-
                 // Add Task Tag Relationships
 
                 return new Task();

@@ -12,8 +12,8 @@ namespace TaskTracker.Tests.Repositories
         public void Can_Get_All_Tasks_From_Repository()
         {
             var repository = new TasksRepository(
-                new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker.dev"].ConnectionString),
-                new TagsRepository(ConfigurationManager.ConnectionStrings["TaskTracker.dev"].ConnectionString));
+                new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString),
+                new TagsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString));
 
             var allTasks = repository.GetAll();
             Assert.That(allTasks, Has.Count.GreaterThan(0));
@@ -23,8 +23,8 @@ namespace TaskTracker.Tests.Repositories
         public void Can_Get_Tasks_By_Id_From_Repository()
         {
             var repository = new TasksRepository(
-                new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker.dev"].ConnectionString),
-                new TagsRepository(ConfigurationManager.ConnectionStrings["TaskTracker.dev"].ConnectionString));
+                new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString),
+                new TagsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString));
 
             var allTasks = repository.GetAll();
             var i = new Random().Next(0, allTasks.Count - 1);

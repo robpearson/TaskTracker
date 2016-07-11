@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using NUnit.Framework;
-using TaskTracker.Controllers.Repositories;
 using TaskTracker.Models;
+using TaskTracker.Controllers.Repositories;
 
 namespace TaskTracker.Tests.Repositories
 {
@@ -12,7 +12,7 @@ namespace TaskTracker.Tests.Repositories
         [Test]
         public void Can_Get_All_Projects_From_Repository()
         {
-            var repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
+            ProjectsRepository repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
 
             var allProjects = repository.GetAll();
             Assert.That(allProjects, Has.Count.GreaterThan(0));
@@ -21,7 +21,7 @@ namespace TaskTracker.Tests.Repositories
         [Test]
         public void Can_Get_Project_By_Id_From_Repository()
         {
-            var repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
+            ProjectsRepository repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
 
             var allProjects = repository.GetAll();
             int i = new Random().Next(0, allProjects.Count -1);
@@ -33,14 +33,14 @@ namespace TaskTracker.Tests.Repositories
         [Test]
         public void Can_Add_Project()
         {
-            var repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
-
             var project = new Project
             {
                  Name = "TestProject",
                  Description = "TestDescription"
                 
             };
+            ProjectsRepository repository = new ProjectsRepository(ConfigurationManager.ConnectionStrings["TaskTracker"].ConnectionString);
+
             var newProject = repository.Add(project);
             Assert.That(newProject.Id, Is.Not.EqualTo(0));
             Console.WriteLine("New ID: " + newProject.Id);
